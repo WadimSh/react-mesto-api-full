@@ -1,0 +1,14 @@
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.spinner__gif {
+    width: 30vw;
+    min-height: 50vh;
+    background-image: url("../../images/spinner.gif");
+    background-size: cover;
+    background-position: center;
+}

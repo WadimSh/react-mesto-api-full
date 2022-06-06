@@ -1,0 +1,14 @@
+.header__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+    .header__menu {
+        display: none;
+        flex-direction: column;
+        width: 320px;
+        border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    }
+  }

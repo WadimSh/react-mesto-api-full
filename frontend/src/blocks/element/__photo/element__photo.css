@@ -1,0 +1,12 @@
+.element__photo {
+  height: 282px;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px 10px 0 0;
+}
+
+.element__photo:hover {
+  transition: 0.3s;
+  opacity: 0.6;
+}
