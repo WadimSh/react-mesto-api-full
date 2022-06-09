@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 
 const auth = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger'); 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cors = require('cors');
 
 const NotFound = require('./errors/NotFound');
 
@@ -12,7 +13,7 @@ const { login, createUser } = require('./controllers/users');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/mestdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -21,6 +22,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
