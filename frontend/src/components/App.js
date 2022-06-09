@@ -55,6 +55,7 @@ function App() {
       history.push('/');
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user,cards]) => {
+        console.log(cards)
         setCards(cards);
         setCurrentUser(user);
       })
@@ -69,7 +70,7 @@ function App() {
   
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .addLike(card._id, !isLiked)
       .then((newCard) => {
@@ -219,7 +220,7 @@ function App() {
       .validityToken(token)
       .then((res) => {
         if(res) {
-          setUserEmailOnHeader(res.data.email)
+          setUserEmailOnHeader(res.email)
         };
         
         history.push('/');
