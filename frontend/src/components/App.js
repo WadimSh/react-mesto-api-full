@@ -55,7 +55,6 @@ function App() {
       history.push('/');
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user,cards]) => {
-        console.log(cards)
         setCards(cards);
         setCurrentUser(user);
       })
@@ -70,7 +69,7 @@ function App() {
   
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likes.find((i) => i === currentUser._id);
     api
       .addLike(card._id, !isLiked)
       .then((newCard) => {
@@ -88,7 +87,7 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c !== card));
         closeAllPopups();
       })
       .catch((err) => {

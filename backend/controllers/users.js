@@ -7,11 +7,13 @@ const IncorrectData = require('../errors/IncorrectData');
 const NotFound = require('../errors/NotFound');
 const Conflict = require('../errors/Conflict');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(() => {
@@ -27,7 +29,7 @@ const findAuthorizationUser = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден.'));
         return;
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -45,7 +47,7 @@ const findUser = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден.'));
         return;
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -58,7 +60,7 @@ const findUser = (req, res, next) => {
 
 const findAllUsers = (_, res, next) => {
   User.find({})
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => next(err));
 };
 
@@ -101,7 +103,7 @@ const updateUser = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден.'));
         return;
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -120,7 +122,7 @@ const updateAvatar = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден.'));
         return;
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
