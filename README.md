@@ -58,8 +58,8 @@ Figma.
 
 `51.250.100.25` - публичный IP
 
-[vadim.nomo...](https://#) — frontend   
-[api.vadim...](https://#) — backend
+[vadim.nomoredomains.xyz](https://vadim.nomoredomains.xyz) — frontend   
+[api.vadim.nomoredomains.xyz](https://vadim.nomoredomains.xyz) — backend
 
 
 
